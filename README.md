@@ -6,49 +6,58 @@ usage and where to reserve more instances if required.
 
 Currently the script checks Elasticache, EC2 and RDS instances. 
 
+
 ## Usage
 
   ./getRICoverage.py
 
+## Update
+
++ Major restructure: Generic functions, Filters, etc
++ Added Redshift support
++ Added RDS MultiAZ support
++ Remove Color module. Already using color coded unicode symbol
+
 ## Sample Output 
 ```
-  Cache
- =======
+  rds
+===
 
-    eu-west-2
-   ===========
-  cache.m4.xlarge  Usage:  2 Reserved:  2 : ✓
+    us-east-1   
+   ===========  
+  Usage:  2 = Reserved:  2 : ✅  - db.m3.medium (MultiAZ:False)
+  Usage:  0 < Reserved:  1 : ⚠  - db.m3.medium (MultiAZ:True)
+  Usage:  1 > Reserved:  0 : ❌  - db.m4.large (MultiAZ:False)
 
-    eu-west-1
-   ===========
-  cache.m4.xlarge  Usage:  2 Reserved:  0 : ❌
+ec2
+===
 
- RDS
-=====
+    us-east-1   
+   ===========  
+  Usage:  1 > Reserved:  0 : ❌  - c5.xlarge
+  Usage:  4 = Reserved:  4 : ✅  - m1.medium
+  Usage:  2 < Reserved:  3 : ⚠  - m1.small
 
-    eu-west-2
-   ===========
-   db.m4.large  Usage:  4 Reserved:  4 : ✓
-   db.r3.large  Usage:  1 Reserved:  1 : ✓
-  db.r4.xlarge  Usage:  1 Reserved:  1 : ✓
-  db.t2.medium  Usage:  2 Reserved:  0 : ❌
-   db.t2.micro  Usage:  1 Reserved:  0 : ❌
+elasticache
+===========
 
- EC2
-=====
+    us-east-1   
+   ===========  
+  Usage:  5 = Reserved:  5 : ✅  - cache.m3.medium
+  Usage:  4 > Reserved:  0 : ❌  - cache.t2.micro
+  Usage:  0 < Reserved:  4 : ⚠  - cache.t3.micro
 
-    eu-west-2
-   ===========
-      m4.large  Usage: 18 Reserved: 30 : ✓
-     m4.xlarge  Usage:  3 Reserved:  3 : ✓
-     t2.medium  Usage:  4 Reserved:  4 : ✓
-      t2.micro  Usage:  1 Reserved:  2 : ✓
-      t2.small  Usage:  1 Reserved:  1 : ✓
+redshift
+========
+
+    us-east-1   
+   ===========  
+  Usage:  6 > Reserved:  0 : ❌  - dc2.large
 
 ```
 
 ## Todo
 
-+ For RDS the AZ Type must match the RI purchased type itherwise it doesn't count as a match 
-+ Add Redshift 
-+ Add any other reserved instance types supported 
++ For RDS the AZ Type must match the RI purchased type itherwise it doesn't count as a match - DONE
++ Add Redshift - DONE
++ Add any other reserved instance types supported. ie ES
