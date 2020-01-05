@@ -67,4 +67,4 @@ redshift
 
 + Handle the case where ES cluster has separate master. Maybe consider it like RDS MultiAZ as additional dimension
 + Additional Code documentation
-+ Pass regions and services as command line parameters. Other assume all regions and all supported services
++ Pass regions and services as command line parameters. Otherwise, generate reports for all regions and supported AWS services
