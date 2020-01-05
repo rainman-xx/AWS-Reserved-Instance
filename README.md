@@ -4,7 +4,9 @@ This script summarises the current usage by instance type in each region and com
 reserved instances in that region. This allows you to know whether you currently have coverage for your resource 
 usage and where to reserve more instances if required. 
 
-Currently the script checks Elasticache, EC2 and RDS instances. 
+Also considers the case when you have unutilized reserved instances.
+
+Currently the script checks Elasticache, EC2, RDS, Redshift, and Elasticsearch instances. 
 
 
 ## Usage
@@ -13,6 +15,11 @@ Currently the script checks Elasticache, EC2 and RDS instances.
 
 ## Update
 
+### 2020-01-05
++ Added ElasticSearch support
++ Able to access value in multi level Dictionary like in ES by flatting it accessing it like objects. i.e Using a['foo.bar'] instead of a['foo']['bar']
+
+### 2020-01-04
 + Major restructure: Generic functions, Filters, etc
 + Added Redshift support
 + Added RDS MultiAZ support
@@ -58,6 +65,6 @@ redshift
 
 ## Todo
 
-+ For RDS the AZ Type must match the RI purchased type itherwise it doesn't count as a match - DONE
-+ Add Redshift - DONE
-+ Add any other reserved instance types supported. ie ES
++ Handle the case where ES cluster has separate master. Maybe consider it like RDS MultiAZ as additional dimension
++ Additional Code documentation
++ Pass regions and services as command line parameters. Other assume all regions and all supported services
